@@ -6,7 +6,11 @@ import {
   SUM_ALL,
   DELETE_ALL_CART,
   SERCH_PRODUCT,
-  SERCH_VALUE
+  SERCH_VALUE,
+  GET_USERS,
+  GET_USER,
+  GET_SELLERS,
+  GET_SELLER
 } from "../types";
 
 export default (state, action) => {
@@ -54,6 +58,31 @@ export default (state, action) => {
         ...state,
         value: payload
       }
+    
+      case GET_USERS:
+        return {
+          ...state,
+          usersArray: payload,
+          constUserArray: payload,
+        };
+      case GET_USER:
+        return {
+          ...state,
+          selectedUser: payload,
+        };
+      
+        case GET_SELLERS:
+          return {
+            ...state,
+            sellersArray: payload,
+            constSellerArray: payload,
+          };
+        case GET_SELLER:
+          return {
+            ...state,
+            selectedSeller: payload,
+          };
+      
     default:
       return state;
   }

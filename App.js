@@ -27,8 +27,6 @@ import MainHeader from "./src/Components/MainHeader";
 import Serches from "./src/screens/Serches";
 
 
-
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -41,13 +39,13 @@ export default function App() {
       <NavigationContainer>
         <ProductState>
           <Stack.Navigator>
-            {/* <Stack.Screen
+            {/*<Stack.Screen
               name="LogoPage"
               component={LogoPage}
               options={{
                 headerShown: false,
               }}
-            />
+            />*/}
             <Stack.Screen
               name="LoginEmail"
               component={LoginEmail}
@@ -55,13 +53,13 @@ export default function App() {
                 headerShown: false,
               }}
             />
-            <Stack.Screen
+            {/*<Stack.Screen
               name="Signup"
               component={Signup}
               options={{
                 headerShown: false,
               }}
-            /> */}
+            /> */ }
             <Stack.Screen
               name="Main"
               component={Main}

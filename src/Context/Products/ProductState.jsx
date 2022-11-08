@@ -6,7 +6,7 @@ import ProductContext from "./ProductContext";
 import { RemoveCartContext } from "./ProductContext";
 import ProductReducer from "./ProductReducer";
 
-import { GET_PRODUCTS, GET_PRODUCT, ADD_TO_CART, DELETE_ITEM_CART, SUM_ALL, DELETE_ALL_CART, SERCH_PRODUCT, SERCH_VALUE } from "../types";
+import { GET_PRODUCTS, GET_PRODUCT, ADD_TO_CART, DELETE_ITEM_CART, SUM_ALL, DELETE_ALL_CART, SERCH_PRODUCT, SERCH_VALUE, GET_USERS, GET_USER, GET_SELLERS, GET_SELLER } from "../types";
 import { useCallback } from "react";
 
 const ProductState = (props) => {
@@ -19,6 +19,12 @@ const ProductState = (props) => {
       quantity: 0,
       total: 0,
     },
+    usersArray: [],
+    constUserArray: [] ,
+    selectedUser: null,
+    sellersArray: [],
+    constSellerArray: [] ,
+    selectedSeller: null,
   };
 
   const [state, dispatch] = useReducer(ProductReducer, initialState);
@@ -44,6 +50,49 @@ const ProductState = (props) => {
       const res = await axios.get(`${config.api.endpoint}` + 'products/' + id + '?populate=*');
       const { data } = res.data;
       dispatch({ type: GET_PRODUCT, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  
+  const getUsers = async () => {
+    console.log(`${config.api.endpoint}` + 'users');
+    try {
+      const res = await axios.get(`${config.api.endpoint}` + 'users');
+      const data = res.data
+      dispatch({ type: GET_USERS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUser = async (id) => {
+    try {
+      const res = await axios.get(`${config.api.endpoint}` + 'users/' + id);
+      const { data } = res.data;
+      dispatch({ type: GET_USER, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSellers = async () => {
+    console.log(`${config.api.endpoint}` + 'sellers');
+    try {
+      const res = await axios.get(`${config.api.endpoint}` + 'sellers');
+      const data = res.data
+      dispatch({ type: GET_SELLERS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSeller = async (id) => {
+    try {
+      const res = await axios.get(`${config.api.endpoint}` + 'sellers/' + id);
+      const { data } = res.data;
+      dispatch({ type: GET_SELLER, payload: data });
     } catch (error) {
       console.log(error);
     }
@@ -146,6 +195,15 @@ const ProductState = (props) => {
           constProductArray: state.constProductArray,
           productsArray: state.productsArray,
           selectedProduct: state.selectedProduct,
+
+          constUserArray: state.constUserArray,
+          usersArray: state.usersArray,
+          selectedUser: state.selectedUser,
+
+          constSellerArray: state.constSellerArray,
+          sellersArray: state.sellersArray,
+          selectedSeller: state.selectedSeller,
+
           cartArray: state.cartArray,
           totalCart: state.totalCart,
           getProducts,
@@ -154,6 +212,10 @@ const ProductState = (props) => {
           dataRecipe,
           removeAllCart,
           serchProduct,
+          getUsers,
+          getUser,
+          getSellers,
+          getSeller
         }}
       >
         {props.children}
